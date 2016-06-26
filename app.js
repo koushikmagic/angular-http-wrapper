@@ -15,8 +15,8 @@ angular.module('TestHttpWrapperDemo', ['HttpWrapper'])
             return UrlSimulation.ACTUAL + url; 
         });
     })
-    .controller('MainCtrl', ['$scope', '$compile', '$interpolate', '$parse', 'HttpWrapper',
-        function($scope, $compile, $interpolate, $parse, HttpWrapper) {
+    .controller('MainCtrl', ['$scope', 'HttpWrapper',
+        function($scope, HttpWrapper) {
 
             $scope.loadRemoteData = function() {
                 HttpWrapper.post('names.json').then(function(res) {

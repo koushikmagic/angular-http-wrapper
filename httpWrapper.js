@@ -9,7 +9,11 @@ angular.module('HttpWrapper', [])
                 }
                 return actualCallToMonitor($http, this, arguments);
             },
-            utilMethodNames = ['get', 'head', 'post', 'put', 'delete', 'jsonp', 'patch'],
+            utilMethodNames = Object.keys($http).filter(function(item) {
+                if (angular.isFunction($http[item])) {
+                    return item;
+                }
+            }),
             _urlTransformCallback = null,
             actualCallToMonitor = function(callback, objectMonitor, args) {
                 return callback.apply(objectMonitor, args);
@@ -32,4 +36,3 @@ angular.module('HttpWrapper', [])
         });
         return wrapper;
     }]);
-    
