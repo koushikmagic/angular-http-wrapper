@@ -9,9 +9,9 @@ angular.module('HttpWrapper', [])
                 }
                 return actualCallToMonitor($http, this, arguments);
             },
-            utilMethodNames = Object.keys($http).filter(function(item) {
-                if (angular.isFunction($http[item])) {
-                    return item;
+            utilMethodNames = Object.keys($http).filter(function(key) {
+                if (angular.isFunction($http[key])) {
+                    return key;
                 }
             }),
             _urlTransformCallback = null,
