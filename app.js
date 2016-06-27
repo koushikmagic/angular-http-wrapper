@@ -4,8 +4,9 @@
 angular.module('TestHttpWrapperDemo', ['HttpWrapper'])
     .constant("UrlSimulation", {
         ACTUAL: '',
-        DATA_LAYER_1: 'mock/',
-        DATA_LAYER_2: 'tier1/'
+        DATA_LAYER_1: 'dummy/dataset1',
+        DATA_LAYER_2: 'dummy/dataset2',
+        MOCK: 'mock/'
     })
     .run(function(HttpWrapper, UrlSimulation) {
         HttpWrapper.setUrlTransform(function(url) {
@@ -18,9 +19,19 @@ angular.module('TestHttpWrapperDemo', ['HttpWrapper'])
     .controller('MainCtrl', ['$scope', 'HttpWrapper',
         function($scope, HttpWrapper) {
 
-            $scope.loadRemoteData = function() {
-                HttpWrapper.post('names.json').then(function(res) {
-                    $scope.remoteData = res.data;
+            $scope.loadRemoteNames = function() {
+                HttpWrapper.get('names.json').then(function(res) {
+                    $scope.remoteNames = res.data;
+                });
+            };
+            $scope.loadRemoteDetail = function() {
+                HttpWrapper({url: 'rest/detail'}).then(function(res) {
+                    $scope.remoteDetails = res.data;
+                });
+            };
+            $scope.submitData = function() {
+                HttpWrapper.post('rest/savedata', $scope.dataFromUI).then(function(res) {
+                    $scope.remoteDetails = res.data;
                 });
             };
         }
