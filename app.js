@@ -31,7 +31,7 @@ angular.module('TestHttpWrapperDemo', ['HttpWrapper'])
             };
             $scope.submitData = function() {
                 HttpWrapper.post('rest/savedata', $scope.dataFromUI).then(function(res) {
-                    $scope.remoteDetails = res.data;
+                    $scope.isSaved = res.data;
                 });
             };
         }
